@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+      <record id="package_order_form_view" model="ir.ui.view">
+        <field name="name">package.order.form</field>
+        <field name="model">package.order</field>
+        <field name="arch" type="xml">
+            <form string="Package Order">
+              <header>
+                <button name="action_confirm" attrs="{'invisible': [('state', '!=','draft')]}" string="Confirm" type="object" class="oe_highlight"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+              </header>
+              <sheet>
+                <div class="oe_button_box" name="button_box">
+                  <button name="action_view_picking" type="object" class="oe_stat_button" icon="fa-truck" attrs="{'invisible': [('picking_id', '=', False),('state','!=','confirm')]}" string="Picking Transfer">
+                  </button>
+
+                  <button string="Valuation" type="object" name="action_view_package_layers" class="oe_stat_button" icon="fa-dollar" attrs="{'invisible': [('picking_id', '=', False),('state','!=','confirm')]}"/>
+                
+            </div>
+                <div class="oe_title">
+                  <h1>
+                      <field name="priority" widget="priority" class="mr-3"/>
+                      <field name="name" placeholder="Package Reference" nolabel="1"/>
+                  </h1>
+                </div>
+                <group>
+                  <group>
+                    <field name="package_service"/>
+                    <field name="user_id"/>
+                    <field name="picking_id" invisible="1"/>
+                  </group>
+                  <group>
+                    <field name="date"/>
+                    <field name="company_id"/>
+                  </group>
+                </group>
+                <notebook>
+                  <page string="Bill Of Material">
+                    <field name="material_ids">
+                      <tree editable="top">
+                        <field name="material_id"/>
+                        <field name="material_qty"/>
+                        <field name="unit_id"/>
+                        <field name="price"/>
+                      </tree>
+                    </field>
+                  </page>
+                </notebook>
+              </sheet>
+              <div class="oe_chatter">
+                <field name="message_follower_ids"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+              </div>
+            </form>
+        </field>
+      </record>
+
+      <record id="package_order_tree_view" model="ir.ui.view">
+        <field name="name">package.order.tree</field>
+        <field name="model">package.order</field>
+        <field name="arch" type="xml">
+            <tree string="Package Orders" js_class="lazy_column_list" default_order="priority desc" multi_edit="1" sample="1" decoration-info="state == 'draft'">
+              <field name="name"/>
+              <field name="package_service"/>
+              <field name="user_id"/>
+              <field name="date"/>
+              <field name="state"/>
+            </tree>
+          </field>
+      </record>
+
+      <record id="view_package_order_filter" model="ir.ui.view">
+        <field name="name">package.order.select</field>
+        <field name="model">package.order</field>
+        <field name="arch" type="xml">
+            <search string="Package Order">
+                <field name="name" string="Package Order" filter_domain="[ ('name', 'ilike', self)]"/>
+                <field name="package_service"/>
+                <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed" name="filter_confirmed" domain="[('state', '=', 'confirm')]"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Package Service" name="package_product" domain="[]" context="{'group_by': 'package_service'}"/>
+                    <filter string="Status" name="status" domain="[]" context="{'group_by': 'state'}"/>
+                </group>
+           </search>
+        </field>
+    </record>  
+
+
+        <record id="package_order_kanban_view" model="ir.ui.view">
+            <field name="name">package.order.kanban</field>
+            <field name="model">package.order</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1">
+                    <field name="name"/>
+                    <field name="package_service"/>
+                    <field name="state"/>
+                    <progressbar field="state" colors='{"confirm": "success"}'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <field name="priority" widget="priority"/>
+                                    <div class="o_kanban_record_headings mt4 ml-1">
+                                        <strong class="o_kanban_record_title"><span><t t-esc="record.package_service.value"/></span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>    
+
+
+      <record id="package_order_action" model="ir.actions.act_window">
+            <field name="name">Package Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">package.order</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="search_view_id" ref="view_package_order_filter"/>
+      </record>
+
+
+      <menuitem id="menu_package_order"
+          name="Package Order"
+          action="package_order_action"
+          parent="package.menu_package_operation"
+          groups="base.group_user"
+          sequence="1"/>
+
+
+
+
+  </data>
+</odoo>

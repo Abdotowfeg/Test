@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bill_material_user,bill.material.user,model_bill_material,base.group_user,1,1,1,1
+access_package_order_user,package.order.user,model_package_order,,1,1,1,1
+access_package.material_user,package.material.user,model_package_material,,1,1,1,1
+

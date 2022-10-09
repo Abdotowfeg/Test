@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="view_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+          <xpath expr="//sheet//div[@name='options']//span[2]" position="after">
+            <span class="d-inline-block" attrs="{'invisible':[('detailed_type','!=','service')]}">
+              <field name="package"/>
+              <label for="package"/>
+            </span>
+          </xpath>
+          <xpath expr="//notebook//page[5]" position="after">
+            <page string="Material details" attrs="{'invisible':[('package','=',False)]}">
+              <field name="material_ids">
+                  <tree editable="top">
+                    <field name="material_id"/>
+                    <field name="uom_id"/>
+                  </tree>
+              </field>
+          </page>
+        </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>

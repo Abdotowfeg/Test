@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <menuitem id="menu_package_root"
+        name="Packing"
+        web_icon="package,static/description/src/icon.png"
+        groups="base.group_user"
+        sequence="10"/>
+
+
+    <menuitem id="menu_package_operation"
+        parent="menu_package_root"
+        name="Operations"
+        sequence="10"/>    
+
+        
+
+  </data>
+</odoo>
