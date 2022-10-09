@@ -19,8 +19,9 @@ class SaleOrder(models.Model):
                 for line1 in line.product_id.material_ids:
                     list_val.append((0,0,{
                         'material_id':line1.material_id.id,
-                        'material_qty':0.0,
+                        'material_qty':line1.material_qty,
                         'unit_id':line1.uom_id.id,
+                        'price':line1.material_price,
                     }))
                 package = self.env['package.order'].create({
                     'package_service':line.product_id.id,

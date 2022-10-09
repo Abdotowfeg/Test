@@ -9,7 +9,7 @@
             <form string="Package Order">
               <header>
                 <button name="action_confirm" attrs="{'invisible': [('state', '!=','draft')]}" string="Confirm" type="object" class="oe_highlight"/>
-                <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
               </header>
               <sheet>
                 <div class="oe_button_box" name="button_box">
@@ -124,6 +124,15 @@
             <field name="search_view_id" ref="view_package_order_filter"/>
       </record>
 
+      <record id="package_material_action" model="ir.actions.act_window">
+            <field name="name">Package Material</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('package', '=', True),('detailed_type','=','service')]</field>
+            <field name="context">{'default_package': True,'default_detailed_type':'service'}</field>
+      </record>
+
 
       <menuitem id="menu_package_order"
           name="Package Order"
@@ -131,6 +140,15 @@
           parent="package.menu_package_operation"
           groups="base.group_user"
           sequence="1"/>
+
+
+
+      <menuitem id="menu_package_products"
+          name="Package Material"
+          action="package_material_action"
+          parent="package.menu_package_root"
+          groups="base.group_user"
+          sequence="13"/>    
 
 
 

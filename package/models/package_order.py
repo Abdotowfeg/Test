@@ -17,7 +17,7 @@ class PackageOrder(models.Model):
     company_id = fields.Many2one('res.company',string='Company',default=lambda self: self.env.company)
     date = fields.Datetime(string="Scheduled Date")
     material_ids = fields.One2many('package.material','order_id',string="Package Material")
-    state = fields.Selection([('draft','Draft'),('confirm','Confirm')],default='draft')
+    state = fields.Selection([('draft','Draft'),('confirm','Confirm'),('done','Done')],default='draft')
     sale_order_id = fields.Many2one('sale.order',string="Sale Order")
     picking_id = fields.Many2one('stock.picking',string="Package Delivery")
 
@@ -50,17 +50,18 @@ class PackageOrder(models.Model):
             'picking_type_id': package_type.id,
             'location_id': package_type.default_location_src_id.id,
             'location_dest_id': package_type.default_location_dest_id.id,
+            'package_order':self.id,
             'move_lines':move_list
         })
         picking_out_pack.action_confirm()
         self.picking_id = picking_out_pack.id
-        self.write({'state':'confirm'})
+        self.write({'state':'confirm'})  
 
 
 
     def action_view_picking(self):
         return {
-            'name': 'Package Trnsfer',
+            'name': 'Package Transfer',
             'type': 'ir.actions.act_window',
             'res_model': 'stock.picking',
             'view_mode': 'tree,form',
@@ -86,7 +87,16 @@ class PackageMaterial(models.Model):
     material_id = fields.Many2one('product.product',domain="[('detailed_type','=','product')]")    
     material_qty = fields.Float(string="Quantity")
     unit_id = fields.Many2one('uom.uom')
-    price = fields.Float(string="Price")
+    price = fields.Float(string="Price",compute="_compute_price")
+
+
+    @api.depends('material_qty')
+    def _compute_price(self):
+        for rec in self:
+            rec.price = rec.material_id.list_price * rec.material_qty
+
+
+
 
 
 

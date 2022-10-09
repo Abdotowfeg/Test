@@ -18,3 +18,5 @@ class BillOfMaterial(models.Model):
     product_id = fields.Many2one('product.template',string="Product")
     material_id = fields.Many2one('product.product',domain="[('detailed_type','=','product')]")    
     uom_id = fields.Many2one('uom.uom',related="material_id.uom_id")
+    material_price = fields.Float(string="Price")
+    material_qty = fields.Float(string="Quantity")

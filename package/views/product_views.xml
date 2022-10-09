@@ -19,6 +19,8 @@
                   <tree editable="top">
                     <field name="material_id"/>
                     <field name="uom_id"/>
+                    <field name="material_price"/>
+                    <field name="material_qty"/>
                   </tree>
               </field>
           </page>
