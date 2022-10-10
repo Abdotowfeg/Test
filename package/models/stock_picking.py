@@ -26,3 +26,57 @@ class StockPicking(models.Model):
                                 or (move.reservation_date and move.reservation_date <= fields.Date.today())))\
                  ._action_assign()
         return res
+
+
+
+
+class StockWarehousePackage(models.Model):
+    _inherit = 'stock.warehouse'
+
+
+    package_type_id = fields.Many2one(
+        'stock.picking.type', 'Packaging Operation Type',
+        domain=[('code', '=', 'package_operation')]) 
+
+
+
+    def _get_picking_type_create_values(self, max_sequence):
+        data, next_sequence = super(StockWarehousePackage, self)._get_picking_type_create_values(max_sequence)
+        data.update({
+            'package_type_id': {
+                'name': _('Packaging'),
+                'code': 'package_operation',
+                'use_create_components_lots': True,
+                'sequence': next_sequence + 2,
+                'sequence_code': 'PACK',
+                'company_id': self.company_id.id,
+            }
+        })
+        return data, max_sequence + 4 
+
+
+
+    def _get_sequence_values(self):
+        values = super(StockWarehousePackage, self)._get_sequence_values()
+        values.update({
+            'package_type_id': {
+                'name': self.name + ' ' + _('Sequence Package'),
+                'prefix': self.code + '/PACK/',
+                'padding': 5,
+                'company_id': self.company_id.id
+            }
+        })
+        return values  
+
+
+    def _get_picking_type_update_values(self):
+        data = super(StockWarehousePackage, self)._get_picking_type_update_values()
+        package_dest_location = self.env['stock.location'].search([('usage','=','customer')])
+        data.update({
+            'package_type_id': {
+                'default_location_src_id': self.lot_stock_id.id,
+                'default_location_dest_id': package_dest_location.id,
+                'barcode': self.code.replace(" ", "").upper() + "-Packaging",
+            },
+        })
+        return data              
