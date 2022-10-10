@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models,_
+from odoo import api,fields, models,_
 from odoo.exceptions import ValidationError
+from collections import defaultdict
 
 
 class StockPicking(models.Model):
@@ -17,9 +18,11 @@ class StockPicking(models.Model):
                     raise ValidationError(_('You can not validate deilvery if package order is not done'))
         res = super(StockPicking, self).button_validate()
         self.package_order.state = 'done'
+        moves = self.package_order.sale_order_id.order_line.move_ids
+        moves.filtered(lambda move: not move.picking_id.immediate_transfer
+                           and move.state in ('confirmed', 'partially_available')
+                           and (move._should_bypass_reservation()
+                                or move.picking_type_id.reservation_method == 'at_confirm'
+                                or (move.reservation_date and move.reservation_date <= fields.Date.today())))\
+                 ._action_assign()
         return res
-
-
-    
-
-

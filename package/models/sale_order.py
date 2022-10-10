@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models,_
+from odoo import api,fields, models,_
 from datetime import datetime
 
 
@@ -9,7 +9,15 @@ class SaleOrder(models.Model):
 
     package_order_id = fields.One2many('package.order','sale_order_id',string="Package Orders")
     package_count = fields.Integer(string="Package Count",compute="_compute_package_count")
+    is_packaging = fields.Boolean(string="Is Packaging",compute="_compute_is_package")
 
+
+    @api.onchange('order_line.product_id')
+    def _compute_is_package(self):
+        self.is_packaging = False
+        for line in self.order_line:
+            if line.product_id.package == True:
+                self.is_packaging = True
 
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
