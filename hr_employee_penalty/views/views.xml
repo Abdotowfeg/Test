@@ -1,0 +1,316 @@
+<odoo>
+    <data>
+
+        <!-- Violation Type form view -->
+        <record id="violation_type_form_view" model="ir.ui.view">
+            <field name="name">violation.type.form.view</field>
+            <field name="model">violation.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Violation Name"/>
+                            <h1>
+                                <div class="d-flex">
+                                    <field class="o_text_overflow" name="name" placeholder="e.g. Absent"/>
+                                </div>
+                            </h1>
+                        </div>
+                        <notebook>
+                            <page string="Penalties">
+                                <field name="penalty_ids" nolabel="1">
+                                    <tree>
+                                        <field name="sequence"/>
+                                        <field name="name"/>
+                                        <field name="penalty_type"/>
+                                        <field name="deduction_type"/>
+                                        <field name="penalty_period"/>
+                                        <field name="deduction_percentage"/>
+                                        <field name="deduction_period_hour"/>
+                                        <field name="deduction_period_day"/>
+                                        <field name="suspend_period"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Violation Type tree view -->
+        <record id="violation_type_tree_view" model="ir.ui.view">
+            <field name="name">violation.type.tree.view</field>
+            <field name="model">violation.type</field>
+            <field name="arch" type="xml">
+                <tree string="Violation Types">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Penalty form view -->
+        <record id="penalty_form_view" model="ir.ui.view">
+            <field name="name">penalty.form.view</field>
+            <field name="model">penalty</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="violation_id" required="1"/>
+                                <field name="penalty_period" attrs="{'invisible': [('penalty_type', '=', 'termination')],
+                                               'required': [('penalty_type', '!=', 'termination')]}"/>
+                                <field name="deduction_percentage"
+                                       attrs="{'invisible': ['|', ('deduction_type', '!=', 'percentage'), ('penalty_type', '!=', 'deduction')],
+                                               'required': ['|', ('deduction_type', '=', 'percentage'), ('penalty_type', '=', 'deduction')]}"/>
+                                <field name="deduction_period_hour"
+                                       attrs="{'invisible': ['|', ('deduction_type', '!=', 'hour'), ('penalty_type', '!=', 'deduction')],
+                                               'required': ['|', ('deduction_type', '=', 'hour'), ('penalty_type', '=', 'deduction')]}"/>
+                                <field name="deduction_period_day"
+                                       attrs="{'invisible': ['|', ('deduction_type', '!=', 'day'),('penalty_type', '!=', 'deduction')],
+                                               'required': ['|', ('deduction_type', '=', 'day'), ('penalty_type', '=', 'deduction')]}"/>
+                            </group>
+                            <group>
+                                <field name="penalty_type" required="1"/>
+                                <field name="sequence" required="1"/>
+                                <field name="deduction_type"
+                                       attrs="{'invisible': [('penalty_type', '!=', 'deduction')],
+                                               'required': [('penalty_type', '=', 'deduction')]}"/>
+                                <field name="suspend_period"
+                                       attrs="{'invisible': [('penalty_type', '!=', 'suspend')],
+                                               'required': [('penalty_type', '=', 'suspend')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Penalty tree view -->
+        <record id="penalty_tree_view" model="ir.ui.view">
+            <field name="name">penalty.tree.view</field>
+            <field name="model">penalty</field>
+            <field name="arch" type="xml">
+                <tree string="Penalties">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="violation_id"/>
+                    <field name="penalty_type"/>
+                    <field name="deduction_type"/>
+                    <field name="penalty_period"/>
+                    <field name="deduction_percentage"/>
+                    <field name="deduction_period_hour"/>
+                    <field name="deduction_period_day"/>
+                    <field name="suspend_period"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Penalty search view -->
+        <record id="penalty_search_view" model="ir.ui.view">
+            <field name="name">penalty.search.view</field>
+            <field name="model">penalty</field>
+            <field name="arch" type="xml">
+                <search string="Penalties">
+                    <field name="name"/>
+                    <field name="violation_id"/>
+                    <field name="penalty_type"/>
+                    <field name="deduction_type"/>
+                    <separator/>
+
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_violation_id" string="Violation" domain="[]"
+                                context="{'group_by': 'violation_id'}"/>
+                        <filter name="group_by_penalty_type" string="Penalty Type" domain="[]"
+                                context="{'group_by': 'penalty_type'}"/>
+                        <filter name="group_by_deduction_type" string="Deduction Type" domain="[]"
+                                context="{'group_by': 'deduction_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Employee Penalty form view -->
+        <record id="employee_penalty_form_view" model="ir.ui.view">
+            <field name="name">employee.penalty.form.view</field>
+            <field name="model">employee.penalty</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_submit" string="Submit" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'new')]}" groups="hr.group_hr_user"/>
+                        <button name="action_approve" string="Approve" type="object" class="oe_highlight"
+                                states="waiting_approval" groups="hr.group_hr_manager"/>
+                        <button name="action_new" string="Set To New" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state', '=', 'new'), ('payslip_id', '!=', False)]}"
+                                groups="hr.group_hr_manager"/>
+                        <button name="action_cancel" string="Cancel" type="object" class="btn-danger" icon="fa-close"
+                                attrs="{'invisible': ['|', ('state', 'not in', ('waiting_approval', 'approve')),
+                                                           ('payslip_id', '!=', False)]}" groups="hr.group_hr_manager"/>
+                        <button name="action_refuse" string="Refuse" type="object" class="btn-danger"
+                                attrs="{'invisible': ['|', ('state', 'not in', ('waiting_approval', 'approve')),
+                                                      ('payslip_id', '!=', False)]}" groups="hr.group_hr_manager"/>
+                        <field name="state" widget="statusbar"
+                               status_visible="new, waiting_approval, approved, canceled, refused"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id" required="1" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                                <field name="manager_id"/>
+                                <field name="employee_no"/>
+                                <field name="violation_id" required="1" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                                <field name="applied_date" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="department_id"/>
+                                <field name="employee_job"/>
+                                <field name="violation_date" required="1"
+                                       attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                                <field name="penalty_id" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reason" placeholder="Reason..."
+                                   attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Other Information">
+                                <group>
+                                    <group>
+                                        <field name="employee_salary" force_save="1" readonly="1"/>
+                                        <field name="payslip_id" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="deduction_amount"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Employee Penalty tree view -->
+        <record id="employee_penalty_tree_view" model="ir.ui.view">
+            <field name="name">employee.penalty.tree.view</field>
+            <field name="model">employee.penalty</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Penalty">
+                    <field name="employee_id"/>
+                    <field name="manager_id"/>
+                    <field name="employee_no"/>
+                    <field name="applied_date"/>
+                    <field name="penalty_id"/>
+                    <field name="department_id"/>
+                    <field name="employee_job"/>
+                    <field name="violation_date"/>
+                    <field name="violation_id"/>
+                    <field name="deduction_amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Inherited hr.contract form view -->
+        <record id="inherit_hr_contract_view_form" model="ir.ui.view">
+            <field name="name">inherit.hr.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[1]" position="inside">
+                    <field name="stop_upgrade" force_save="1" readonly="1"/>
+                </xpath>
+                <xpath expr="//group/group[2]" position="inside">
+                    <field name="stop_bonus" force_save="1" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherited hr.employee form view -->
+        <record id="inherit_view_employee_form" model="ir.ui.view">
+            <field name="name">inherit.view.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_get_penalties"
+                            class="oe_stat_button"
+                            icon="fa-ban"
+                            type="object"
+                            groups="hr.group_hr_user"
+                            attrs="{'invisible': [('penalty_count', '=', 0)]}">
+                        <field name="penalty_count" widget="statinfo" string="Penalties"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Violation Type Action -->
+        <record id="violation_type_action" model="ir.actions.act_window">
+            <field name="name">Violation Type</field>
+            <field name="res_model">violation.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Penalty Action -->
+        <record id="penalty_action" model="ir.actions.act_window">
+            <field name="context">{'search_default_group_by_violation_id': 1}</field>
+            <field name="name">Penalties</field>
+            <field name="res_model">penalty</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Employee Penalty Action -->
+        <record id="employee_penalty_action" model="ir.actions.act_window">
+            <field name="name">Employee Penalty</field>
+            <field name="res_model">employee.penalty</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Penalties Configuration Menu -->
+        <menuitem
+                id="penalty_config_menu"
+                name="Penalties"
+                parent="hr.menu_human_resources_configuration"
+                groups="hr.group_hr_manager"
+                sequence="99"
+        />
+
+        <!-- Violation Type Menu -->
+        <menuitem
+                id="violation_type_menu"
+                name="Violation Type"
+                parent="penalty_config_menu"
+                action="violation_type_action"
+                groups="hr.group_hr_manager"
+                sequence="1"
+        />
+
+        <!-- Penalty Menu -->
+        <menuitem
+                id="penalty_menu"
+                name="Penalty"
+                parent="penalty_config_menu"
+                action="penalty_action"
+                groups="hr.group_hr_manager"
+                sequence="2"
+        />
+
+        <!-- Employee Penalty Menu -->
+        <menuitem
+                id="employee_penalty_menu"
+                name="Employee Penalty"
+                parent="hr.menu_hr_root"
+                groups="hr.group_hr_user"
+                sequence="11"
+        />
+
+    </data>
+</odoo>

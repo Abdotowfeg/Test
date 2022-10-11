@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data noupdate="1">
+        <!-- Penalty rule dada -->
+        <record id="employee_penalty_rule" model="hr.salary.rule">
+            <field name="amount_select">fix</field>
+            <field name="sequence" eval="200"/>
+            <field name="amount_fix" eval="0.0"/>
+            <field name="code">PENALTY</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="name">Penalty</field>
+            <field name="struct_id" ref="hr_payroll.structure_002"/>
+        </record>
+    </data>
+</odoo>
