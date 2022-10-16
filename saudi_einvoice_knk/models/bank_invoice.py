@@ -22,5 +22,5 @@ class BankInvoice(models.Model):
         result = []
         for record in self:
             if record.name:
-                result.append((record.id, record.name + ''+'السداد على رقم حساب'))
+                result.append((record.id, 'السداد على رقم حساب'+' ' +  record.name ))
         return result 

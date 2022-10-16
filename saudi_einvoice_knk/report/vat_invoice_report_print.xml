@@ -228,7 +228,7 @@
 				 <br/>
 				 <br/>
 				 <t t-foreach="doc.invoice_banks" t-as="bank">
-				 	 السداد على رقم حساب <span t-esc="bank.name"/> <img t-if="bank.bank_logo" t-att-src="image_data_uri(bank.bank_logo)" alt="Logo" style="max-height: 4cm; max-width: 8cm;"/>
+				 	 السداد على رقم حساب <span t-esc="bank.name"/> <img t-if="bank.bank_logo" t-att-src="image_data_uri(bank.bank_logo)" alt="Logo" style="max-height: 2cm; max-width: 4cm;"/>
 				 	<br/>
 				 	<br/>
 				 	<span t-esc="bank.bank_number"/>
