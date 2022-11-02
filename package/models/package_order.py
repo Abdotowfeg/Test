@@ -15,7 +15,7 @@ class PackageOrder(models.Model):
     package_service = fields.Many2one('product.product',string="Package Service",domain="[('detailed_type','=','service'),('package','=',True)]")
     user_id = fields.Many2one('res.users',string="Responsible",default=lambda self: self.env.user)
     company_id = fields.Many2one('res.company',string='Company',default=lambda self: self.env.company)
-    date = fields.Datetime(string="Scheduled Date")
+    date = fields.Datetime(string="Scheduled Date",required=True)
     material_ids = fields.One2many('package.material','order_id',string="Package Material")
     state = fields.Selection([('draft','Draft'),('confirm','Confirm'),('done','Done')],default='draft')
     sale_order_id = fields.Many2one('sale.order',string="Sale Order")
@@ -76,7 +76,22 @@ class PackageOrder(models.Model):
         scraps = self.env['stock.scrap'].search([('picking_id', '=', self.picking_id.id)])
         domain = [('id', 'in', (self.picking_id.move_lines + scraps.move_id).stock_valuation_layer_ids.ids)]
         action = self.env["ir.actions.actions"]._for_xml_id("stock_account.stock_valuation_layer_action")
-        return dict(action, domain=domain)      
+        return dict(action, domain=domain)   
+
+
+    @api.onchange('package_service')
+    def _onchange_package_service(self):
+        self.material_ids = False
+        list_val = []
+        for line in self.package_service.material_ids:
+            list_val.append((0,0,{
+                'material_id':line.material_id.id,
+                'material_qty':line.material_qty,
+                'unit_id':line.uom_id.id,
+                'price':line.material_price,
+                }))
+
+        self.material_ids = list_val
 
 
 
@@ -94,6 +109,7 @@ class PackageMaterial(models.Model):
     def _compute_price(self):
         for rec in self:
             rec.price = rec.material_id.list_price * rec.material_qty
+                       
 
 
 

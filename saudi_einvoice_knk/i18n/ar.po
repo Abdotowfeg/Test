@@ -1,0 +1,510 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* saudi_einvoice_knk
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-09 12:18+0000\n"
+"PO-Revision-Date: 2022-04-09 12:18+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: saudi_einvoice_knk
+#: model:mail.template,subject:saudi_einvoice_knk.email_template_edi_invoice_etir
+#: model:mail.template,subject:saudi_einvoice_knk.email_template_edi_invoice_tax_etir
+msgid "${object.company_id.name} Invoice (Ref ${object.name or 'n/a'})"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.actions.report,print_report_name:saudi_einvoice_knk.action_report_simplified_tax_invoice
+msgid "'Simplified Tax Invoice -%s' %(object.partner_id.name)"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.actions.report,print_report_name:saudi_einvoice_knk.action_report_tax_invoice
+msgid "'VAT Invoice -%s' %(object.partner_id.name)"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "0.0 %"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid ""
+"<br/>\n"
+"\t\t\t            \t\t<strong>Invoice‬‬ Date: </strong>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid ""
+"<br/>\n"
+"\t\t\t            \t\t‫<strong>‪Payment Terms‬: </strong>"
+msgstr ""
+"<br/>\n"
+"\t\t\t            \t\t‫<strong>‪ : Payment Terms‬-‪شروط الدفع</strong>"
+
+#. module: saudi_einvoice_knk
+#: model:mail.template,body_html:saudi_einvoice_knk.email_template_edi_invoice_etir
+#: model:mail.template,body_html:saudi_einvoice_knk.email_template_edi_invoice_tax_etir
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                    Dear\n"
+"                    % if object.partner_id.parent_id:\n"
+"                        ${object.partner_id.name} (${object.partner_id.parent_id.name}),\n"
+"                    % else:\n"
+"                        ${object.partner_id.name},\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Here is your\n"
+"                    % if object.name:\n"
+"                        invoice <strong>${object.name}</strong>\n"
+"                    % else:\n"
+"                        invoice\n"
+"                    %endif\n"
+"                    % if object.invoice_origin:\n"
+"                        (with reference: ${object.invoice_origin})\n"
+"                    % endif\n"
+"                    amounting in <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
+"                    from ${object.company_id.name}.\n"
+"                    % if object.invoice_payment_state == 'paid':\n"
+"                        This invoice is already paid.\n"
+"                    % else:\n"
+"                        Please remit payment at your earliest convenience.\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Do not hesitate to contact us if you have any questions.\n"
+"                </p>\n"
+"            </div>\n"
+"            "
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid "<i class=\"fa fa-at\" role=\"img\" aria-label=\"Email\" title=\"Email\"/>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid "<i class=\"fa fa-building-o\" role=\"img\" aria-label=\"Fiscal number\"/>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid "<i class=\"fa fa-globe\" role=\"img\" aria-label=\"Website\" title=\"Website\"/>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid "<i class=\"fa fa-phone\" role=\"img\" aria-label=\"Phone\" title=\"Phone\"/>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid ""
+"<span class=\"text-right arabic\" style=\"padding-right:-6px;\">رقم السجل "
+"التجاري</span>‬"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid ""
+"<span class=\"text-right arabic\" style=\"padding-right:-6px;\">ضريبة القيمة"
+" المضافة</span>‬"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid ""
+"<span class=\"text-right arabic\">Simplified Tax Invoice / فاتورة ضريبية "
+"مبسطة</span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "<span class=\"text-right arabic\">Tax Invoice / فاتورة ضريبية </span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "<span style=\"font-weight:bold;\">Customer Note:</span>"
+msgstr "<span style=\"font-weight:bold;\">ملاحظة العميل : </span>"
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid ""
+"<span style=\"font-weight:bold;\">Note:</span>Payment against all cash "
+"invoices will be valid only if customer have cash receipt voucher proof of "
+"payment. otherwise it will be considered as a credit invoice."
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "<span style=\"font-weight:bold;\">Terms / Conditions: </span>"
+msgstr "<span style=\"font-weight:bold;\">الشروط : </span>"
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "<strong>Invoice‬‬ ‫‪Number‬‬: </strong>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "AMOUNT INVOICED"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.view_company_form_knk
+msgid "Arabic Address"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company__arabic_city
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.view_company_form_knk
+msgid "Arabic City"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company__arabic_country
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.view_company_form_knk
+msgid "Arabic Country"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company__arabic_name
+msgid "Arabic Name"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company__arabic_state
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.view_company_form_knk
+msgid "Arabic State"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company__arabic_street
+msgid "Arabic Street"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.view_company_form_knk
+msgid "Arabic Street 2..."
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.view_company_form_knk
+msgid "Arabic Street..."
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company__arabic_street2
+msgid "Arabic Street2"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.view_company_form_knk
+msgid "Arabic ZIP"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company__arabic_zip
+msgid "Arabic Zip"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model,name:saudi_einvoice_knk.model_res_company
+msgid "Companies"
+msgstr "شركات"
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_account_bank_statement_line__invoice_date_supply
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_account_move__invoice_date_supply
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_account_payment__invoice_date_supply
+msgid "Date Of Supply"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Description<br/><span class=\"arabic\">تفاصيل السلع أو الخدمات</span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Discount"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Discount<br/><span class=\"arabic\">خصومات</span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_account_move__display_name
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_report_electronic_invoice_report_simplified_tax_invoice__display_name
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_account_move__id
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_report_electronic_invoice_report_simplified_tax_invoice__id
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company__id
+msgid "ID"
+msgstr "المُعرف"
+
+#. module: saudi_einvoice_knk
+#: model:mail.template,report_name:saudi_einvoice_knk.email_template_edi_invoice_etir
+msgid ""
+"Invoice_Simplified_${(object.name or '').replace('/','_')}${object.state == "
+"'draft' and '_draft' or ''}"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:mail.template,report_name:saudi_einvoice_knk.email_template_edi_invoice_tax_etir
+msgid ""
+"Invoice_Tax_${(object.name or '').replace('/','_')}${object.state == 'draft'"
+" and '_draft' or ''}"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.model,name:saudi_einvoice_knk.model_account_move
+msgid "Journal Entry"
+msgstr "قيد اليومية"
+
+#. module: saudi_einvoice_knk
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_account_move____last_update
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_report_electronic_invoice_report_simplified_tax_invoice____last_update
+#: model:ir.model.fields,field_description:saudi_einvoice_knk.field_res_company____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid "Logo"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "No"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid ""
+"Page:\n"
+"                    <span class=\"page\"/>\n"
+"                    of\n"
+"                    <span class=\"topage\"/>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Prepared By:"
+msgstr "اعداد بواسطة :"
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "Quantity<br/><span class=\"arabic\"/>الكمية"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Quantity<br/><span class=\"arabic\">الكمية</span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Received By:"
+msgstr "استلام بواسطة : "
+
+#. module: saudi_einvoice_knk
+#: model:ir.model,name:saudi_einvoice_knk.model_report_electronic_invoice_report_simplified_tax_invoice
+msgid "ReportSimplifiedTaxInvoice"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model:ir.actions.report,name:saudi_einvoice_knk.action_report_tax_invoice
+#: model:ir.actions.server,name:saudi_einvoice_knk.action_account_move_report_tax
+msgid "Saudi VAT Invoice"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: code:addons/saudi_einvoice_knk/models/saudi_invoice.py:0
+#, python-format
+msgid "Send Invoice"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Signature:__________________"
+msgstr "التوقيع :__________________"
+
+#. module: saudi_einvoice_knk
+#: model:ir.actions.report,name:saudi_einvoice_knk.action_report_simplified_tax_invoice
+#: model:ir.actions.server,name:saudi_einvoice_knk.action_ccount_move_report_simplified_tax_invoice
+msgid "Simplified VAT Invoice"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Stamp:"
+msgstr "الختم :"
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Tax Amount<br/><span class=\"arabic\">مبلغ الضريبة</span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Tax Rate<br/><span class=\"arabic\">نسبة الضريبة</span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid ""
+"Taxable <br/> Amount<br/><span class=\"arabic\">المبلغ الخاضع للضريبة</span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Total (Excluding VAT)"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Total Amount Due"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Total Taxable Amount (Excluding VAT)"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Total VAT"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid ""
+"Total<br/>(incl.vat) <br/><span class=\"arabic\">المجموع (شامل ضريبة القيمة "
+"المضافة)</span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "Unit Price<br/><span class=\"arabic\">سعر الوحدة</span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: code:addons/saudi_einvoice_knk/report/simpli_vat_invoice_report.py:0
+#, python-format
+msgid "You can't print this report because type is not Individual!"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "إجمالي المبلغ الخاضع للضريبة (غير شامل ضريبة القيمة المضافة)"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "إجمالي المبلغ المستحق"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "إجمالي ضريبة القيمة المضافة"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "اجمالي المبلغ المستحق"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "الإجمالي (غير شامل ضريبة القيمة المضافة)"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "تاريخ الفاتورة"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "رقم الفاتورة"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "فترة الخدمة"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_tax_invoice_document
+msgid "مجموع الخصم"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "مجموع ضريبة القيمة المضافة"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid "‫‪ <span class=\"text-right\" style=\"padding-left:5px;\"/>CR TaxNo. :"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.external_layout_seti
+msgid "‫‪ <span class=\"text-right\" style=\"padding-left:5px;\">VAT‬‬ No.: </span>"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "‫‪Due Date"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "‫‪Invoice‬‬ Date"
+msgstr "تاريخ الفاتورة"
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "‫‪Invoice‬‬ ‫‪Number‬‬"
+msgstr ""
+
+#. module: saudi_einvoice_knk
+#: model_terms:ir.ui.view,arch_db:saudi_einvoice_knk.report_simplified_tax_invoice_document
+msgid "‫‪Payment Terms‬"
+msgstr ""
+
+#. module: accounting
+#: model_terms:ir.ui.view,arch_db:accounting.report_invoice_document_inherit
+msgid ""
+"<br/>\n"
+"\t\t\t\t\t<strong>Invoice Date:</strong>"
+msgstr ""
+"<br/>\n"
+"\t\t\t\t\t<strong> Invoice Date-تاريخ الفاتورة : </strong>"
