@@ -32,6 +32,7 @@ class AccountAsset(models.Model):
                                      default='monthly', tracking=True, readonly=True,
                                      states={'draft': [('readonly', False)], 'model': [('readonly', False)]})
     image_128 = fields.Image()
+    brand = fields.Date(string="Brand")
 
     @api.model
     def create(self, vals):

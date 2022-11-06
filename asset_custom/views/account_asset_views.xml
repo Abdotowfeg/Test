@@ -36,6 +36,9 @@
                         <field name="warranty_start_date"/>
                         <field name="warranty_end_date"/>
                     </group>
+                    <group string="Asset Brand">
+                        <field name="brand"/>
+                    </group>
                 </xpath>
 
             </field>
