@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="view_asset_marker_tree" model="ir.ui.view">
+            <field name="name">view.asset.marker.tree</field>
+            <field name="model">asset.marker</field>
+            <field name="arch" type="xml">
+                <tree string="Asset Marker">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_asset_marker_form" model="ir.ui.view">
+            <field name="name">view.asset.marker.form</field>
+            <field name="model">asset.marker</field>
+            <field name="arch" type="xml">
+                <form string="Asset Marker">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="......"/>
+                            </h1>
+                        </div>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_asset_marker_view" model="ir.actions.act_window">
+            <field name="name">Asset Marker</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">asset.marker</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create New Marker
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_asset_marker_view"
+                  name="Asset Marker"
+                  parent="account.account_management_menu"
+                  action="action_asset_marker_view"
+                  sequence="1"
+                  groups="account.group_account_manager"/>
+
+    </data>
+</odoo>
